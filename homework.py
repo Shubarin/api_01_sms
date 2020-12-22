@@ -19,7 +19,7 @@ def get_status(user_id):
         "v": 5.92,
         "access_token": os.getenv("VK_ACCESS_TOKEN")
     }
-    is_online = requests.post(os.getenv("VK_URL_USERS_GET"),
+    is_online = requests.post("https://api.vk.com/method/users.get",
                               params=params).json().get("response")[0].get("online")
     return is_online
 
@@ -34,10 +34,10 @@ def sms_sender(sms_text):
     return message.sid
 
 
-if __name__ == '__main__':
-    vk_id = input('Введите id ')
+if __name__ == "__main__":
+    vk_id = input("Введите id ")
     while True:
         if get_status(vk_id) == 1:
-            sms_sender(f'{vk_id} сейчас онлайн!')
+            sms_sender(f"{vk_id} сейчас онлайн!")
             break
         time.sleep(5)
